@@ -4,19 +4,20 @@ function App() {
     const [name, setName] = useState("");
     
     // useRef returns an object with a 'current' property.
-        // ie the below yields renderCount = {current: 0}
+        // ie the const testRef = useRef(0) yields testRef = {current: 0}
     // useRef does not cause the entire component to re-render
-    const renderCount = useRef(0);
-
-    useEffect(() => {
-      renderCount.current = renderCount.current + 1
-    }, [name])
+    const inputRef = useRef()
+    const focus = () => {
+      console.log(inputRef)
+      inputRef.current.focus()
+    }
 
     return (
         <>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <input ref={inputRef} value={name} onChange={(e) => setName(e.target.value)} />
+            {console.log(inputRef)}
             <div>My name is {name}</div>
-            <div>I rendered {renderCount.current} times</div>
+            <button onClick={focus}>Focus</button>
         </>
     );
 }
